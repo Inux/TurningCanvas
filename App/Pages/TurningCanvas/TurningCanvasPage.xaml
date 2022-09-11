@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:drawable="clr-namespace:App.Pages.TurningCanvas"
+             x:Class="App.Pages.TurningCanvas.TurningCanvasPage">
+    <ContentPage.Resources>
+        <drawable:TurningCanvasDrawable x:Key="drawable" />
+    </ContentPage.Resources>
+    <VerticalStackLayout
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
+
+        <GraphicsView x:Name="turningCanvasDrawable"
+                      Drawable="{StaticResource drawable}"
+                      HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand"
+                      WidthRequest="1080"
+                      HeightRequest="1080"/>
+    </VerticalStackLayout>
+</ContentPage>
