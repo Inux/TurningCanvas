@@ -4,17 +4,21 @@
              xmlns:drawable="clr-namespace:App.Pages.TurningCanvas"
              x:Class="App.Pages.TurningCanvas.TurningCanvasPage">
     <ContentPage.Resources>
-        <drawable:TurningCanvasDrawable x:Key="drawable" />
+        <drawable:TurningCanvasDrawable
+            x:Name="turningCanvasDrawable"
+            x:Key="drawable" />
     </ContentPage.Resources>
     <VerticalStackLayout
         HorizontalOptions="FillAndExpand"
         VerticalOptions="FillAndExpand">
 
-        <GraphicsView x:Name="turningCanvasDrawable"
+        <GraphicsView x:Name="turningCanvasGraphicsView"
                       Drawable="{StaticResource drawable}"
                       HorizontalOptions="FillAndExpand"
                       VerticalOptions="FillAndExpand"
                       WidthRequest="1080"
-                      HeightRequest="1080"/>
+                      HeightRequest="1080"
+                      StartInteraction="OnStartInteraction"
+                      EndInteraction="OnEndInteraction"/>
     </VerticalStackLayout>
 </ContentPage>

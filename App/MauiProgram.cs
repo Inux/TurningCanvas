@@ -6,10 +6,10 @@ namespace App;
 
 public static class MauiProgram
 {
-	public static MauiApp CreateMauiApp()
-	{
+    public static MauiApp CreateMauiApp()
+    {
 
-		var builder = MauiApp.CreateBuilder();
+        var builder = MauiApp.CreateBuilder();
 
         // Create services and register them
 
@@ -32,13 +32,13 @@ public static class MauiProgram
         // Create Maui App
 
         builder
-			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
-			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            });
 
         return builder.Build();
-	}
+    }
 }
