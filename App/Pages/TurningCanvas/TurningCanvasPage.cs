@@ -8,6 +8,7 @@ public partial class TurningCanvasPage : ContentPage
 
     private const double FramesPerSec = 60;
     private const double FramesIntervallMs = 1000 / FramesPerSec;
+    private DateTime lastUpdate = DateTime.Now.AddYears(-1);
 
     public TurningCanvasPage() { }
 
@@ -33,12 +34,23 @@ public partial class TurningCanvasPage : ContentPage
     private void OnStartInteraction(object sender, TouchEventArgs args)
     {
         this.logger.LogInformation("StartInteraction: {Args}", args.Touches);
-        this.Dispatcher.Dispatch(() => this.turningCanvasDrawable.OnStartInteraction(this, args));
+        this.turningCanvasDrawable.OnStartInteraction(this, args);
+    }
+
+    private void OnDragInteraction(object sender, TouchEventArgs args)
+    {
+        var current = DateTime.Now;
+        var diff = current - lastUpdate;
+        if (diff > TimeSpan.FromMilliseconds(1000))
+        {
+            this.logger.LogInformation("DragInteraction: {Args}", args.Touches);
+            this.turningCanvasDrawable.OnDragInteraction(this, args);
+            this.lastUpdate = current;
+        }
     }
 
     private void OnEndInteraction(object sender, TouchEventArgs args)
     {
         this.logger.LogInformation("EndInteraction: {Args}", args.Touches);
-        this.Dispatcher.Dispatch(() => this.turningCanvasDrawable.OnEndInteraction(this, args));
     }
 }

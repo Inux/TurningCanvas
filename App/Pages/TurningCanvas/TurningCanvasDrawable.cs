@@ -3,7 +3,7 @@ namespace App.Pages.TurningCanvas;
 public partial class TurningCanvasDrawable : IDrawable
 {
     private const double TargetFps = 60;
-    private const double IntervalInMs = (1 / TargetFps) * 1000;
+    private const double IntervalInMs = 1000 / TargetFps;
 
     private readonly System.Timers.Timer rotationTimer;
     private float rotationSpeedPerMillisecond = 0.03f;
@@ -24,7 +24,6 @@ public partial class TurningCanvasDrawable : IDrawable
         canvas.StrokeColor = Colors.Red;
         canvas.StrokeSize = 1;
         canvas.Rotate(this.rotationDegrees, dirtyRect.Center.X, dirtyRect.Center.Y);
-        //canvas.StrokeDashPattern = new float[] { 2, 2 };
         canvas.DrawLine(dirtyRect.Left, dirtyRect.Top, dirtyRect.Right, dirtyRect.Bottom);
 
         foreach (var drawRequest in drawRequests)
@@ -49,6 +48,12 @@ public partial class TurningCanvasDrawable : IDrawable
     }
 
     public void OnStartInteraction(object sender, TouchEventArgs args)
+    {
+        var touch = args.Touches[0];
+        drawRequests.Add((touch.X, touch.Y, rotationDegrees));
+    }
+
+    public void OnDragInteraction(object sender, TouchEventArgs args)
     {
         var touch = args.Touches[0];
         drawRequests.Add((touch.X, touch.Y, rotationDegrees));

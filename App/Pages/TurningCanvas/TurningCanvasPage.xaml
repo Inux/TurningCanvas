@@ -19,6 +19,7 @@
                       WidthRequest="1080"
                       HeightRequest="1080"
                       StartInteraction="OnStartInteraction"
+                      DragInteraction="OnDragInteraction"
                       EndInteraction="OnEndInteraction"/>
     </VerticalStackLayout>
 </ContentPage>

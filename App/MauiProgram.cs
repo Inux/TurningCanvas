@@ -19,12 +19,15 @@ public static class MauiProgram
                 .AddFilter("App", LogLevel.Trace)
                 .AddFilter("Microsoft", LogLevel.Warning);
 
+            configure.AddSimpleConsole(options => {
+                options.IncludeScopes = true;
+                options.SingleLine = true;
+                options.TimestampFormat = "hh:mm:ss ";
+            });
         });
 
-        builder.Services.AddSingleton<SettingsPage>();
 
-        // order matters
-        builder.Services.AddSingleton<TurningCanvasDrawable>();
+        builder.Services.AddSingleton<SettingsPage>();
         builder.Services.AddSingleton<TurningCanvasPage>();
 
         builder.Services.BuildServiceProvider();

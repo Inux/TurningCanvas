@@ -1,0 +1,29 @@
+name: Build TurningCanvas App
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: macos-12
+
+    strategy:
+      matrix:
+        dotnet-version: [ '6.0.x' ]
+
+    steps:
+      - name: Checkout Reposistory
+        uses: actions/checkout@v3
+
+      - name: Setup dotnet ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Install dotnet workloads
+        run: cd App && dotnet workload restore
+
+      - name: Install dependencies
+        run: cd App && dotnet restore
+
+      - name: Build
+        run: cd App && dotnet build --configuration Release --no-restore
