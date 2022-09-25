@@ -1,6 +1,8 @@
-﻿using App.Pages.Settings;
+﻿using App.Lib.Settings;
+using App.Pages.Settings;
 using App.Pages.TurningCanvas;
 using Microsoft.Extensions.Logging;
+using TinyIoC;
 
 namespace App;
 
@@ -8,32 +10,22 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
-
         var builder = MauiApp.CreateBuilder();
 
-        // Create services and register them
-
+        // Create logging service
         builder.Services.AddLogging(configure =>
         {
             configure.AddDebug()
                 .AddFilter("App", LogLevel.Trace)
                 .AddFilter("Microsoft", LogLevel.Warning);
-
-            configure.AddSimpleConsole(options => {
-                options.IncludeScopes = true;
-                options.SingleLine = true;
-                options.TimestampFormat = "hh:mm:ss ";
-            });
         });
+        var serviceProvider = builder.Services.BuildServiceProvider();
 
-
-        builder.Services.AddSingleton<SettingsPage>();
-        builder.Services.AddSingleton<TurningCanvasPage>();
-
-        builder.Services.BuildServiceProvider();
+        // Use TinyIoC because TurningCanvasDrawable cannot use built in dependency injection
+        TinyIoCContainer.Current.Register(serviceProvider.GetService<ILoggerFactory>());
+        TinyIoCContainer.Current.Register<ISettings>(new SettingsProvider());
 
         // Create Maui App
-
         builder
             .UseMauiApp<App>()
             .ConfigureFonts(fonts =>

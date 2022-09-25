@@ -4,22 +4,71 @@
              xmlns:drawable="clr-namespace:App.Pages.TurningCanvas"
              x:Class="App.Pages.TurningCanvas.TurningCanvasPage">
     <ContentPage.Resources>
-        <drawable:TurningCanvasDrawable
-            x:Name="turningCanvasDrawable"
-            x:Key="drawable" />
+        <drawable:TurningCanvasDrawable x:Name="turningCanvasDrawable"
+                                        x:Key="drawable" />
     </ContentPage.Resources>
-    <VerticalStackLayout
-        HorizontalOptions="FillAndExpand"
-        VerticalOptions="FillAndExpand">
+    <Grid>
+        <!-- Grid Definition -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
 
-        <GraphicsView x:Name="turningCanvasGraphicsView"
-                      Drawable="{StaticResource drawable}"
-                      HorizontalOptions="FillAndExpand"
-                      VerticalOptions="FillAndExpand"
-                      WidthRequest="1080"
-                      HeightRequest="1080"
-                      StartInteraction="OnStartInteraction"
-                      DragInteraction="OnDragInteraction"
-                      EndInteraction="OnEndInteraction"/>
-    </VerticalStackLayout>
+        <!-- Settings Section -->
+        <VerticalStackLayout Grid.Row="0"
+                             Grid.Column="0"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+
+            <Label x:Name="labelSpeed"
+                   Text="Speed"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+            <Slider x:Name="sliderSpeed"
+                    Maximum="0.2"
+                    Minimum="0"
+                    ValueChanged="OnSpeedChanged" />
+            <Label x:Name="labelColor"
+                   Text="Color"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+            <Picker x:Name="pickerColor"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    SelectedIndexChanged="OnColorChanged"/>
+            <Label x:Name="labelSize"
+                   Text="Size"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+            <Slider x:Name="sliderSize"
+                    Maximum="100"
+                    Minimum="0"
+                    ValueChanged="OnSizeChanged" />
+            <Label Text="Actions"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+            <Button Text="Save"
+                    Pressed="OnSavePressed"/>
+        </VerticalStackLayout>
+
+        <!-- Turning Canvas -->
+        <VerticalStackLayout Grid.Row="0"
+                             Grid.Column="1"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+
+            <GraphicsView x:Name="turningCanvasGraphicsView"
+                          Drawable="{StaticResource drawable}"
+                          HorizontalOptions="FillAndExpand"
+                          VerticalOptions="FillAndExpand"
+                          WidthRequest="1080"
+                          HeightRequest="1080"
+                          StartInteraction="OnStartInteraction"
+                          DragInteraction="OnDragInteraction"
+                          EndInteraction="OnEndInteraction"/>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>
